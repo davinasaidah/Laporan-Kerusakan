@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Form Kirim ke WhatsApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    form { max-width: 350px; margin: auto; }
+    label { display: block; margin-top: 12px; }
+    input, select, button { width: 100%; padding: 8px; margin-top: 6px; }
+    button { background: #25D366; color: white; border: none; cursor: pointer; font-size: 16px; }
+    button:hover { background: #128C7E; }
+  </style>
+</head>
+<body>
+  <h2>Form Pesan ke WhatsApp</h2>
+  <form id="waForm">
+    <label for="requestDate">Tanggal Request:</label>
+    <input type="date" id="requestDate" required>
+
+    <label for="requestBy">Request By:</label>
+    <input type="text" id="requestBy" placeholder="Request By" required>
+
+    <label for="lokasiPekerjaan">Lokasi Pekerjaan:</label>
+    <input type="text" id="lokasiPekerjaan" placeholder="Lokasi Pekerjaan" required>
+
+    <label for="isuPekerjaan">Isu Pekerjaan:</label>
+    <input type="text" id="isuPekerjaan" placeholder="Isu Pekerjaan" required>
+
+    <label for="NamaMaintenance">Nama Maintenance:</label>
+    <select id="NamaMaintenance" required>
+      <option value="">-- Pilih Penerima --</option>
+      <option value="62895708314500">Reza</option>
+      <option value="6287819330456">Husen</option>
+    </select>
+    <button type="button" onclick="kirimWA()">Kirim ke WhatsApp</button>
+  </form>
+
+  <script>
+    function kirimWA() {
+      var tanggalRequest = document.getElementById('requestDate').value.trim();
+      var requestBy = document.getElementById('requestBy').value.trim();
+      var lokasiPekerjaan = document.getElementById('lokasiPekerjaan').value.trim();
+      var isuPekerjaan = document.getElementById('isuPekerjaan').value.trim();
+      var nomor = document.getElementById('NamaMaintenance').value;
+
+      if(!tanggalRequest || !requestBy || !lokasiPekerjaan || !isuPekerjaan || !nomor) {
+        alert("Harap isi semua kolom!");
+        return;
+      }
+
+      var text = `Halo, berikut detail request:\n\nTanggal: ${tanggalRequest}\nRequest By: ${requestBy}\nLokasi: ${lokasiPekerjaan}\nIsu: ${isuPekerjaan}`;
+      var url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(text);
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
